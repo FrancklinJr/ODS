@@ -527,6 +527,17 @@ with tab_missoes:
     if st.session_state.scores_missions:
         for aluno, pontos in st.session_state.scores_missions.items():
             st.write(f"**{aluno}**: {pontos} pontos")
+            if st.button(f"❌ Deletar {aluno}"):
+                # Remove o aluno de todas as estruturas
+                if aluno in st.session_state.students:
+                    st.session_state.students.remove(aluno)
+                if aluno in st.session_state.scores_missions:
+                    del st.session_state.scores_missions[aluno]
+                if aluno in st.session_state.mission_history:
+                    del st.session_state.mission_history[aluno]
+
+                salvar_dados()
+                st.rerun()
     else:
         st.info("Nenhum aluno registrado ainda.")
 
